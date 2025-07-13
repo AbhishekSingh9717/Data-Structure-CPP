@@ -28,7 +28,7 @@ public:
         return *this;
     }
 
-    Array &insertion(T item, int index = -1)
+    Array &insertion(T &item, int index = -1)
     {
         vector<T> temp;
         if (index - 1 < 0 || index - 1 > v1.size())
@@ -43,6 +43,30 @@ public:
                 temp.push_back(v1[i]);
             }
             temp.push_back(item);
+            for (int i = index - 1; i < v1.size(); i++)
+            {
+                temp.push_back(v1[i]);
+            }
+            v1 = temp;
+        }
+        return *this;
+    }
+
+    Array &insertion(vector<T> &items, int index = -1)
+    {
+        if (index - 1 < 0 || index - 1 > v1.size())
+        {
+            cout << "Invalid index. Inserting at the end." << endl;
+            v1.insert(v1.end(), items.begin(), items.end());
+        }
+        else
+        {
+            vector<T> temp;
+            for (int i = 0; i < index - 1; i++)
+            {
+                temp.push_back(v1[i]);
+            }
+            temp.insert(temp.end(), items.begin(), items.end());
             for (int i = index - 1; i < v1.size(); i++)
             {
                 temp.push_back(v1[i]);
@@ -67,7 +91,8 @@ int main()
         cout << "Your choice: ";
         cin >> option;
 
-        switch (option){
+        switch (option)
+        {
         case 0:
         {
             cout << "Exiting..." << endl;
@@ -80,26 +105,59 @@ int main()
         }
         case 2:
         {
-            int number;
-            cout << "Enter the number to insert: ";
-            cin >> number;
-
-            cout << "Do you want to insert at a specific index? (y/n): ";
-            char choice;
-            cin >> choice;
-            if (choice == 'y' || choice == 'Y')
+            cout << "Enter the number of elements to insert: ";
+            int n;
+            cin >> n;
+            if (n == 1)
             {
-                int index;
-                cout << "Enter the index to insert at: ";
-                cin >> index;
-                array.insertion(number, index).traverse();
+                int number;
+                cout << "Enter the number to insert: ";
+                cin >> number;
+
+                cout << "Do you want to insert at a specific index? (y/n): ";
+                char choice;
+                cin >> choice;
+                if (choice == 'y' || choice == 'Y')
+                {
+                    int index;
+                    cout << "Enter the index to insert at: ";
+                    cin >> index;
+                    array.insertion(number, index).traverse();
+                }
+                else
+                {
+                    array.insertion(number).traverse();
+                }
             }
             else
             {
-                array.insertion(number).traverse();
+                vector<int> numbers(n);
+
+                cout << "Enter the numbers to insert: ";
+                for (int i = 0; i < n; i++)
+                {
+                    cin >> numbers[i];
+                }
+                cout<<endl;
+
+                cout << "Do you want to insert at a specific index? (y/n): ";
+                char choice;
+                cin >> choice;
+                if (choice == 'y' || choice == 'Y')
+                {
+                    int index;
+                    cout << "Enter the index to insert at: ";
+                    cin >> index;
+                    array.insertion(numbers, index).traverse();
+                }
+                else
+                {
+                    array.insertion(numbers).traverse();
+                }
             }
             break;
         }
+
         default:
             break;
         }
