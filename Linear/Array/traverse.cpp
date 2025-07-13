@@ -52,8 +52,7 @@ public:
         return *this;
     }
 
-    Array &insertion(vector<T> &items, int index = -1)
-    {
+    Array &insertion(vector<T> &items, int index = -1){
         if (index - 1 < 0 || index - 1 > v1.size())
         {
             cout << "Invalid index. Inserting at the end." << endl;
